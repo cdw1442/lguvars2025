@@ -1,0 +1,17 @@
+@import "../scss/base/mixin";
+.networkErrorNotice {
+	.list-wrap{
+		margin-top: 0;
+		.list-box {
+			flex-wrap: wrap;
+			gap: 4px 8px;
+			> * {
+				flex: auto;
+			}
+			.tail {
+				max-width: unset;
+				margin: 0;
+			}
+		}
+	}
+}

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>조회페이지 케이스</title>
+	<link rel="stylesheet" type="text/css" href="../../static/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/style.css">
+	<script src="../../static/js/tooltip/popper.js"></script>
+</head>
+<!-- Scripts -->
+<script>
+	const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
+	function initCheckDevice() {
+		// PC
+		if (!isMobile) {
+			document.body.classList.add("is-pc");
+		}
+	}
+	window.onload = ()=> {
+		initCheckDevice();
+
+		/* 임시코드입니다. 수정하여 사용 요망 */
+
+		// 툴팁 default : 페이지 내 1개의 툴팁에서만 정상 동작 >> 복수 툴팁의 경우 별로 스크립트 개발 필요
+		const tooltipBtn = document.querySelector('.btn-tooltip'); 
+		const tooltip = document.querySelector('.tooltip-wrap');
+		const popperInstance = Popper.createPopper(tooltipBtn, tooltip, {
+			placement: 'top',
+			modifiers: [
+				{
+					name: 'offset',
+					options: {
+						offset: [18, 8], // 해당 페이지의 경우 오프셋 18,8 고정
+					},
+				},
+				{
+					name: 'flip',
+					options: {
+						fallbackPlacements: ['top', 'bottom'],
+					},
+				},
+			],
+		});
+
+		function show() {
+			// Make the tooltip visible
+			tooltip.setAttribute('data-show', '');
+
+			// Enable the event listeners
+			popperInstance.setOptions((options) => ({
+				...options,
+				modifiers: [
+					...options.modifiers,
+					{ name: 'eventListeners', enabled: true },
+				],
+			}));
+
+			// Update its position
+			popperInstance.update();
+		}
+
+		function hide() {
+			// Hide the tooltip
+			tooltip.removeAttribute('data-show');
+
+			// Disable the event listeners
+			popperInstance.setOptions((options) => ({
+				...options,
+				modifiers: [
+					...options.modifiers,
+					{ name: 'eventListeners', enabled: false },
+				],
+			}));
+		}
+
+		const showEvents = ['click', 'focus'];
+		const hideEvents = ['click(.tooltip-close);', 'blur'];
+
+		showEvents.forEach((event) => {
+			tooltipBtn.addEventListener(event, show);
+		});
+
+		hideEvents.forEach((event) => {
+			tooltipBtn.addEventListener(event, hide);
+		});
+	}
+</script>
+<style>
+body {background-color: #f1f1f1;}
+.page-wrapper {
+	position: relative;
+	margin-top: 10px;
+}
+.header {
+	position: absolute;
+}
+h1 {
+	max-width: 550px;
+	margin: 10px auto 0;
+	font-weight: 600;
+}
+</style>
+<body>
+	<br/><h1>[홈 : 청구요금]</h1>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- 홈 : 청구요금 -->
+			<!-- Case 청구서 기본 : 동일 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-bill">
+					<div class="select-billdate">
+						<span class="txt-due">사용기간 <span>2월 1일</span> ~ <span>2월 28일</span></span>
+					</div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<button type="button" class="chips chips-date">
+								<span class="txt"><span>24년</span><span>3월</span></span>
+								<span class="arrow"></span>
+							</button>
+							<span class="txt">청구요금은</span>
+						</span>
+						<span class="txt price">
+							<span class="deco">89,000</span>
+							<span class="color-prim">원</span>이에요
+						</span>
+					</div>
+				</div>
+				<!-- 동일 케이스 : <span class="txt-info"> -->
+				<div class="info-price-single">
+					<span class="txt-info ">
+						지난 달과 납부요금이<span class="color-prim">동일해요</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+	
+		<!-- container -->
+		<div class="container">
+			<!-- Case 청구서 기본 : 증가 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-bill">
+					<div class="select-billdate">
+						<span class="txt-due">사용기간 <span>2월 1일</span> ~ <span>2월 28일</span></span>
+					</div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<button type="button" class="chips chips-date">
+								<span class="txt"><span>24년</span><span>3월</span></span>
+								<span class="arrow"></span>
+							</button>
+							<span class="txt">청구요금은</span>
+						</span>
+						<span class="txt price">
+							<span class="deco">89,000</span>
+							<span class="color-prim">원</span>이에요
+						</span>
+					</div>
+				</div>
+				<!-- 증가 케이스 : <span class="txt-info increase"> -->
+				<div class="info-price-single">
+					<span class="txt-info increase">
+						지난 달보다
+						<span>
+							<span class="txt-price">38,000원</span>늘었어요
+							<span class="img-box">
+								<img src="../../static/images/icon/ic-arrowUp-circle-prime.svg" alt="">
+							</span>
+						</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- Case 청구서 기본 : 감소 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-bill">
+					<div class="select-billdate">
+						<span class="txt-due">사용기간 <span>2월 1일</span> ~ <span>2월 28일</span></span>
+					</div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<button type="button" class="chips chips-date">
+								<span class="txt"><span>24년</span><span>3월</span></span>
+								<span class="arrow"></span>
+							</button>
+							<span class="txt">청구요금은</span>
+						</span>
+						<span class="txt price">
+							<span class="deco">89,000</span>
+							<span class="color-prim">원</span>이에요
+						</span>
+					</div>
+				</div>
+				<!-- 감소 케이스 : <span class="txt-info decrease"> -->
+				<div class="info-price-single">
+					<span class="txt-info decrease">
+						지난 달보다
+						<span>
+							<span class="txt-price">5,000원</span>줄었어요
+							<span class="img-box">
+								<img src="../../static/images/icon/ic-arrowUp-circle-prime.svg" alt="">
+							</span>
+						</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- Case 청구서 발행 전 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-bill">
+					<div class="select-billdate">
+						<span class="txt-due">사용기간 <span>2월 1일</span> ~ <span>2월 28일</span></span>
+					</div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<button type="button" class="chips chips-date">
+								<span class="txt"><span>24년</span><span>3월</span></span>
+								<span class="arrow"></span>
+							</button>
+							<span class="txt">청구요금은</span>
+						</span>
+						<span class="txt price">
+							<span class="color-prim">8일 이후 청구 예정</span>이에요
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- Case 청구서 없음 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-bill">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<!-- <span class="txt-select-wrap">
+							<span class="txt">아직 청구서가<br> <span class="color-prim">발행되지 않았어요</span></span>
+						</span> -->
+						<span class="txt price">
+							<span class="txt">아직 청구서가<br> <span class="color-prim">발행되지 않았어요</span></span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<br/><h1>[홈 : 요금 바로 납부]</h1>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- 모바일 : 요금 바로납부 -->
+			<!-- Case 요금 납부 금액 안내 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-realtime">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">현재 납부 가능한 요금은</span>
+						</span>
+						<span class="txt price">
+							<span class="deco">60,320</span>
+							<span class="color-prim">원</span>이에요
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- Case 입금전용 계좌 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-realtime">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">입금전용 계좌로</span>
+						</span>
+						<span class="txt price">
+							<span class="deco">60,320</span>
+							<span class="color-prim">원</span>&nbsp;납부 가능해요
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br/><h1>[홈 : 요금 납부방법 변경]</h1>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">	
+			<!-- 모바일 : 납부방법 변경 -->
+			<!-- Case 은행 자동이체 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-payment">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">현재 요금 납부방법은</span>
+						</span>
+						<span class="txt price">
+							<span class="color-prim">은행 자동이체</span>예요
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- Case 은행 신용카드 자동이체 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-payment">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">현재 요금 납부방법은</span>
+						</span>
+						<span class="txt price">
+							<span class="color-prim">신용카드 자동이체</span>예요
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- Case 지로 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-payment">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">현재 요금 납부방법은</span>
+						</span>
+						<span class="txt price">
+							<span class="color-prim">지로</span>예요
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br/><h1>[홈 : 청구서 받는 방법 변경]</h1>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- 모바일 : 청구서 받는방법 변경 -->
+			<!-- Case 이메일 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-bill">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">현재 청구서 받는 방법은</span>
+						</span>
+						<span class="txt price">
+							<span class="color-prim">이메일</span>이에요
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- Case 문자청구서(구) -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-bill">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">현재 청구서 받는 방법은</span>
+						</span>
+						<span class="txt price">
+							<span class="color-prim">문자청구서(구)</span>이에요
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- Case 휴대폰 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-bill">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">현재 청구서 받는 방법은</span>
+						</span>
+						<span class="txt price">
+							<span class="color-prim">휴대폰</span>이에요
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- Case 우편 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-bill">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">현재 청구서 받는 방법은</span>
+						</span>
+						<span class="txt price">
+							<span class="color-prim">우편</span>이에요
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<br/><h1>[홈 : 일시정지 신청]</h1>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+				<span class="header-tit"><span class="header-txt"></span></span>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- 홈 : 일시정지 신청 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-pauseTemp">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">고객님의 서비스별</span>
+						</span>
+						<span class="txt price">
+							<span class="color-prim">사용 현황</span>이에요
+						</span>
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+
+	<br/><h1>[홈 : 부가서비스 신청/해지]</h1>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+				<span class="header-tit"><span class="header-txt"></span></span>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- 홈 : 부가서비스 신청/해지 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-MOPaymentUsed">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">가입되어 있는</span>
+						</span>
+						<span class="txt price">
+							<span class="color-prim">부가서비스 정보</span>예요
+						</span>
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+
+	<br/><h1>[홈 : 설치장소 변경 신청]</h1>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- 홈 : 설치장소 변경 신청 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-requestMoveInstall">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">설치장소 변경을 원하시는</span>
+						</span>
+						<span class="txt price">
+							<span class="txt"><span class="color-prim">주소</span>를 선택해 주세요</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //container -->
+	</div>
+
+	<br/><h1>[홈 : 간편 조치ㆍA/S 신청]</h1>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- 홈 : 간편 조치ㆍA/S 신청 -->
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-asTaskRegister">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">아래 순서에 따라 문제를</span>
+						</span>
+						<span class="txt price">
+							<span class="txt"><span class="color-prim">간편하게 조치</span>해 보세요</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //container -->
+	</div>
+
+	<br/><h1>[홈 : A/S 신청 내역]</h1>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<button type="button" class="btn btn-util prev"><span>이전</span></button>
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- 홈 : A/S 신청 내역 -->			
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-asTaskRegister">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt"><span class="color-prim">A/S 내역을 확인</span>하고</span>
+						</span>
+						<span class="txt price">
+							<span class="txt"><span class="color-prim">변경하거나 취소</span>할 수 있어요</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //container -->
+	</div>
+
+	<br/><h1>[홈 : 장애/ 작업 안내]</h1>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<!-- <button type="button" class="btn btn-util prev"><span>이전</span></button> -->
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- 홈 : 작업 안내 -->			
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-networkErrorNotice">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">이용중인 지역에</span>
+						</span>
+						<span class="txt price">
+							<span class="txt"><span class="color-prim">서비스 개선 작업중</span>입니다</span>
+						</sapn>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //container -->
+	</div>
+	<br/><h1>[홈 : 장애 안내]</h1>
+	<div class="page-wrapper">
+		<!-- header -->
+		<header class="header">
+			<div class="header__util">
+				<!-- <button type="button" class="btn btn-util prev"><span>이전</span></button> -->
+			</div>
+			<div class="header__btn">
+				<button type="button" class="btn btn-callEnd"><span class="icon"></span><span class="txt">종료</span></button>
+			</div>
+		</header>
+		<!-- //header -->
+		<!-- container -->
+		<div class="container">
+			<!-- 홈 : 장애/ 작업 안내 -->			
+			<div class="section__cont summary">
+				<div class="cont__wrap cont__wrap-networkErrorNotice">
+					<div class="select-billdate"></div>
+					<div class="cont__txt-box">
+						<span class="txt-select-wrap">
+							<span class="txt">이용중인 지역에</span>
+						</span>
+						<span class="txt price">
+							<span class="txt"><span class="color-prim">서비스 장애 조치중</span>입니다</span>
+						</sapn>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //container -->
+	</div>
+	<br/><br/>
+	
+
+</body>
+</html>

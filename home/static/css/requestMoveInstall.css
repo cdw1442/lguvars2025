@@ -1,0 +1,75 @@
+.requestMoveInstall .cont__wrap.cont__wrap-service {
+	display: flex;
+	flex-direction: column;
+	row-gap: 12px;
+	padding-bottom: 24px;
+}
+.requestMoveInstall .cont__wrap.cont__wrap-service .con__tit-box {
+	margin-top: 20px;
+	margin-bottom: 0;
+}
+.requestMoveInstall .cont__wrap.cont__wrap-service:has(> .inform-wrap) .cont__txt-box:not(:first-child) {
+	margin-top: 16px;
+}
+.requestMoveInstall .cont__wrap.cont__wrap-service:has(> .inform-wrap) .cont__txt-box:not(:first-child) .txt {
+	font-size: 18px;
+}
+.requestMoveInstall .list-wrap {
+	margin-top: 0;
+}
+.requestMoveInstall .list-wrap:first-of-type {
+	margin-top: 12px;
+}
+.requestMoveInstall .list-wrap .list-box {
+	gap: 4px 8px;
+}
+.requestMoveInstall .list-wrap .list-box .tail {
+	max-width: 220px;
+}
+.requestMoveInstall .card.rmPeriod {
+	row-gap: 10px;
+}
+.requestMoveInstall .card.rmPeriod .card-header .tit {
+	color: var(--dt-black);
+}
+.requestMoveInstall .card.rmPeriod .item {
+	column-gap: 0;
+}
+.requestMoveInstall .card.rmPeriod .item .img-box {
+	width: 18px;
+	min-width: 18px;
+	height: 18px;
+	transform: rotate(180deg);
+}
+.requestMoveInstall .card.rmPeriod .list-wrap {
+	margin-top: 0;
+}
+.requestMoveInstall .card.rmPeriod .list-wrap .list-box .tail {
+	color: var(--dt-gray16);
+}
+.requestMoveInstall .card.rmPeriod .card-footer {
+	margin-top: 12px;
+}
+.requestMoveInstall .table-cont th:first-child, .requestMoveInstall .table-cont td:first-child {
+	width: 25%;
+}
+.requestMoveInstall .table-cont th.txt-amount, .requestMoveInstall .table-cont td.txt-amount {
+	width: 30%;
+}
+.requestMoveInstall .input-col-wrap .input-control:first-of-type {
+	margin-top: 4px;
+}
+.requestMoveInstall .slct-box-wrap {
+	justify-content: flex-start;
+	column-gap: 4px;
+}
+.requestMoveInstall .slct-box-wrap:has(.slct-box:first-child:last-child) .slct-box {
+	width: max-content;
+	max-width: max-content;
+}
+.requestMoveInstall .slct-box-wrap:has(.slct-box:nth-child(2):last-child) .slct-box {
+	width: max-content;
+}
+.requestMoveInstall .chckbox-wrap {
+	margin: 4px 0 12px;
+}
