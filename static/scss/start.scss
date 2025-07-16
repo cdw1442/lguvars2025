@@ -1,0 +1,75 @@
+@import "../scss/base/mixin";
+body {
+	background-color: var(--dt-gray05);
+}
+ 
+.cont__wrap {
+	&.start {
+		padding: 35px 16px 58px;
+	}
+}	   
+
+.start {		
+	.inform-wrap {
+		gap: 12px;
+		.img-box {
+			width: 68px;
+			height: 68px;
+		}
+		.tit {
+			font-size: 22px;
+			color: var(--dt-gray16);
+			line-height: var(--dt-lh150);
+		}
+	}
+	.card-group {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+	.card, 
+	.card-body, 
+	.card-footer {
+		flex-direction: row;			
+		align-items: center;			
+	}
+	.card, 
+	.card-body {
+		gap: 10px;
+	}
+	.card-body {
+		flex: 1 auto;
+	}
+	.card__text {
+		display: flex;
+    	flex-direction: column;
+		gap: 4px;
+	}
+	.card {
+		// flex-wrap: wrap;
+		min-height: 88px;
+		.img-box {
+			width: 32px;
+			height: 32px;
+			min-width: 32px;
+		}
+		.tit {
+			font-size: 18px;
+			line-height: var(--dt-lh120);
+		}
+		.txt {
+			line-height: 1;
+		}
+		.card-footer {
+			flex: 0 0 auto;
+			margin-top: unset;
+		}
+		.btn {
+			padding: 10px;
+			.txt {
+				font-size: 14px;
+				line-height: 1;
+			}
+		}
+	}
+		
+}
